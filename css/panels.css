@@ -1,0 +1,80 @@
+/* =====================================================================
+   HTML panels: the LINE-like phone (js/chat.js), the voice-call screen, the notification banner.
+   Inside the phone it is the system UI font (so it reads as a real app); the colours are the --chat-* tokens.
+   ===================================================================== */
+.chatpanel{--ui:"Microsoft JhengHei UI","Microsoft JhengHei","PingFang TC",sans-serif;font-family:var(--ui)}
+.chatpanel .phone{position:absolute;left:0;top:0;width:420px;height:860px;transform-origin:0 0;box-sizing:border-box;padding:12px;
+  background:#0A1618;border-radius:60px;box-shadow:7px 8px 0 rgba(3,14,16,.55)}
+.chatpanel .scr{position:relative;width:100%;height:100%;border-radius:48px;overflow:hidden;background:#EEF3F9;color:var(--chat-ink);
+  display:flex;flex-direction:column}
+.chatpanel .sb{flex:none;align-self:stretch;height:50px;display:flex;align-items:center;justify-content:space-between;padding:6px 30px 0 34px;font-size:21px;font-weight:700;color:var(--chat-ink);background:#EEF3F9}
+.chatpanel .sbi{display:flex;opacity:.9}
+.chatpanel .hd{flex:none;height:74px;display:flex;align-items:center;gap:6px;padding:0 20px 0 14px;background:#EEF3F9;border-bottom:1.5px solid #D5DEE9;color:var(--chat-ink)}
+.chatpanel .hb{display:flex}
+.chatpanel .hn{flex:1;font-size:27px;font-weight:700;margin-left:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chatpanel .hn i{font-style:normal;font-weight:400;color:var(--chat-meta);margin-left:8px;font-size:22px}
+.chatpanel .hi{display:flex;gap:18px;color:var(--chat-meta)}
+.chatpanel .body{flex:1;min-height:0;position:relative;overflow:hidden}
+.chatpanel .chatbg{background:var(--chat-bg)}
+.chatpanel .msgs{position:absolute;left:0;right:0;bottom:0;padding:14px 14px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:16px}
+.chatpanel .inp{flex:none;height:80px;display:flex;align-items:center;gap:12px;padding:0 18px;background:#EEF3F9;border-top:1.5px solid #D5DEE9;color:var(--chat-meta)}
+.chatpanel .inp .fld{flex:1;height:44px;border-radius:22px;background:#fff;border:1.5px solid #D5DEE9}
+/* messages: hidden until their beat (display:none), then pop in */
+.chatpanel .m{display:none;align-items:flex-end;gap:10px}
+.chatpanel .m.on{display:flex;animation:msgIn .42s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes msgIn{from{opacity:0;transform:translateY(22px) scale(.92)}to{opacity:1;transform:none}}
+.chatpanel .m.me{justify-content:flex-end}
+.chatpanel .m.them{align-items:flex-start}
+.chatpanel .av{flex:none;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.chatpanel .col{display:flex;flex-direction:column;gap:4px;min-width:0}
+.chatpanel .nm{font-size:20px;color:var(--chat-meta);margin-left:4px}
+.chatpanel .row{display:flex;align-items:flex-end;gap:8px}
+.chatpanel .bub{position:relative;max-width:268px;box-sizing:border-box;padding:12px 18px;border-radius:24px;font-size:26px;line-height:1.35;background:var(--chat-them);color:var(--chat-ink);word-break:break-all}
+.chatpanel .m.me .bub{background:var(--chat-me)}
+.chatpanel .m.them .bub::before{content:"";position:absolute;left:-7px;top:12px;border:8px solid transparent;border-right-color:var(--chat-them);border-left:0}
+.chatpanel .m.me .bub::before{content:"";position:absolute;right:-7px;top:12px;border:8px solid transparent;border-left-color:var(--chat-me);border-right:0}
+.chatpanel .stk,.chatpanel .tile{display:flex;line-height:0}
+.chatpanel .stk svg{width:84px;height:84px}
+.chatpanel .tile svg{width:128px;height:auto}
+.chatpanel .tile{border-radius:14px;overflow:hidden;box-shadow:0 0 0 3px #fff}
+.chatpanel .bub.art{padding:0;width:236px;overflow:hidden;border-radius:18px}
+.chatpanel .art .fwd{font-size:17px;color:var(--chat-meta);padding:8px 14px 0}
+.chatpanel .art .atitle{font-size:21px;font-weight:700;padding:0 14px 6px;line-height:1.25}
+.chatpanel .art .aimg{height:36px}
+.chatpanel .art .alink{display:none;font-size:15px;color:var(--chat-meta);padding:4px 14px 6px}
+.chatpanel .tm{position:relative;display:flex;flex-direction:column;align-items:flex-end;font-size:17px;line-height:1.15;color:var(--chat-meta);white-space:nowrap;margin-bottom:2px}
+.chatpanel .m.them .tm{align-items:flex-start}
+.chatpanel .tm .rd{display:none;font-weight:400;font-size:19px}
+.chatpanel .tm.rcpt .rd{display:block;animation:msgIn .35s ease both}
+.chatpanel .ring{position:absolute;left:50%;top:50%;margin:-35px 0 0 -60px;pointer-events:none;overflow:visible;
+  stroke-dasharray:340;stroke-dashoffset:340;opacity:0;transition:stroke-dashoffset .7s ease,opacity .1s}
+.chatpanel .ring.on{stroke-dashoffset:0;opacity:1}
+.chatpanel .t2{visibility:hidden}
+.chatpanel .dots{display:flex;gap:7px;padding:15px 18px}
+.chatpanel .dots i{width:10px;height:10px;border-radius:50%;background:#9AA7B6;display:block}
+/* the voice-call screen */
+.chatpanel .scr.dark{background:#10242A;color:#F7F1E8}
+.chatpanel .scr.dark .sb{background:transparent;color:#F7F1E8}
+.chatpanel .scr.call{align-items:center}
+.chatpanel .scr.call.warm::before{content:"";position:absolute;left:50%;top:38%;width:760px;height:760px;margin:-380px 0 0 -380px;
+  background:radial-gradient(circle,rgba(255,184,107,.5) 0%,rgba(255,184,107,.18) 40%,rgba(255,184,107,0) 68%);pointer-events:none}
+.chatpanel .scr.call .body{align-self:stretch;display:flex;flex-direction:column;align-items:center;width:100%}
+.chatpanel .ctop{display:flex;align-items:center;gap:10px;margin-top:34px;font-size:27px;color:#F7F1E8}
+.chatpanel .cav{margin-top:44px}
+.chatpanel .cav .av{box-shadow:0 0 0 12px rgba(247,241,232,.12)}
+.chatpanel .cname{margin-top:34px;font-size:46px;font-weight:700}
+.chatpanel .cbtns{display:flex;gap:44px;margin-top:84px}
+.chatpanel .cbtns span{width:92px;height:92px;border-radius:50%;background:rgba(247,241,232,.14);display:flex;align-items:center;justify-content:center;color:#F7F1E8}
+.chatpanel .cend{margin-top:40px}
+.chatpanel .cend span{width:104px;height:104px;border-radius:50%;background:#E5483A;display:flex;align-items:center;justify-content:center;color:#fff}
+/* notification banner (slides down from above the stage) */
+.panel.banner{display:flex;align-items:center;gap:calc(22px*var(--bk,1));box-sizing:border-box;padding:calc(18px*var(--bk,1)) calc(28px*var(--bk,1)) calc(18px*var(--bk,1)) calc(20px*var(--bk,1));border-radius:calc(30px*var(--bk,1));
+  background:#F3F6FA;color:#1E1E1E;font-family:"Microsoft JhengHei UI","Microsoft JhengHei","PingFang TC",sans-serif;
+  box-shadow:0 calc(7px*var(--bk,1)) 0 rgba(4,16,18,.45);transform:translateY(calc(-190px*var(--bk,1)));transition:transform .55s cubic-bezier(.3,1.25,.5,1),opacity .3s ease,visibility 0s linear .55s}
+.panel.banner.on{transform:none;transition:transform .55s cubic-bezier(.3,1.25,.5,1),opacity .3s ease,visibility 0s}
+.banner .bi{display:flex;line-height:0}
+.banner .bi svg{width:calc(64px*var(--bk,1));height:calc(64px*var(--bk,1))}
+.banner .bt{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.banner .bt b{font-size:calc(24px*var(--bk,1));font-weight:700;color:#4E5D6C}
+.banner .bt span{font-size:calc(36px*var(--bk,1));line-height:1.25;font-weight:700}
+.banner .bm{font-size:calc(22px*var(--bk,1));color:#6B7A89;align-self:flex-start;margin-top:4px}
